@@ -4,33 +4,60 @@
   <meta charset="UTF-8">
   <title>Manual do Aprovado • Iniciante</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <!-- Fontes modernas -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
+    /*========== VARS ==========*/
     :root {
       --dark: #0B0E1E;
       --blue: #2D7BE9;
       --cyan: #00F0FF;
       --white: #F5F5F5;
       --glass: rgba(255,255,255,0.05);
-      --radius: 18px;
-      --shadow: 0 8px 32px rgba(0,0,0,0.3);
+      --radius: 20px;
+      --shadow: 0 8px 32px rgba(0,0,0,0.4);
       --ease: cubic-bezier(.4,0,.2,1);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, var(--dark), #11142e);
-      color: var(--white);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+    body, html {
+      width:100%; height:100%;
+      font-family:'Inter',sans-serif;
+      background: var(--dark);
+      overflow-x:hidden;
     }
+    /*========== BACKGROUND SHAPES + TEXTURE ==========*/
+    .background, .overlay {
+      position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none;
+    }
+    .background .shape {
+      position:absolute; border-radius:50%; filter:blur(120px);
+      animation: float 8s ease-in-out infinite alternate;
+    }
+    .background .shape1 {
+      width:300px; height:300px;
+      background: var(--cyan);
+      top:10%; left:-5%;
+    }
+    .background .shape2 {
+      width:400px; height:400px;
+      background: var(--blue);
+      top:60%; left:70%;
+      animation-duration: 10s;
+    }
+    @keyframes float {
+      to { transform: translateY(40px) translateX(20px) }
+    }
+    .overlay {
+      background:
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 5px),
+        repeating-linear-gradient(-45deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 5px);
+    }
+
+    /*========== CONTAINER ==========*/
     #app {
-      width: 100%;
+      position:relative;
       max-width: 420px;
+      margin: auto;
+      padding: 60px 16px;
+      z-index:1;
     }
     .card {
       background: var(--glass);
@@ -39,106 +66,129 @@
       box-shadow: var(--shadow);
       padding: 32px 24px;
       text-align: center;
-      position: relative;
-      overflow: hidden;
+      color: var(--white);
       animation: fadeIn 0.6s var(--ease) both;
     }
     @keyframes fadeIn {
-      from { opacity:0; transform: translateY(20px) }
-      to { opacity:1; transform: translateY(0) }
+      from {opacity:0; transform: translateY(30px)}
+      to   {opacity:1; transform: translateY(0)}
     }
+
+    /*========== LOGO & TITLES ==========*/
     .logo {
-      font-size: 2.2rem;
-      font-weight: 800;
+      font-size:2.4rem;
+      font-weight:800;
       color: var(--cyan);
-      text-shadow: 0 0 8px var(--cyan);
-      margin-bottom: 12px;
+      text-shadow:0 0 8px var(--cyan);
+      margin-bottom:12px;
+      animation: fadeIn 0.6s .2s both;
     }
     h2 {
-      font-size: 1.6rem;
-      font-weight: 600;
-      margin-bottom: 16px;
+      font-size:1.6rem;
+      margin-bottom:16px;
     }
-    p { font-size: 1rem; opacity: .85; margin-bottom: 24px; }
+    p { font-size:1rem; opacity:.9; margin-bottom:24px; }
+
+    /*========== WIZARD BUTTONS ==========*/
     .btns {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
+      display:flex;
+      gap:16px;
+      justify-content:center;
     }
     .btn {
-      flex: 1 1 45%;
-      padding: 12px 0;
-      border: none;
-      border-radius: 50px;
-      font-weight: 600;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
+      flex:1;
+      padding:12px 0;
+      border:none;
+      border-radius:50px;
+      font-weight:600;
+      cursor:pointer;
       transition: transform .3s var(--ease), box-shadow .3s var(--ease);
-    }
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-    }
-    .btn::after {
-      content: '';
-      position: absolute; top:50%; left:50%;
-      width:200%; height:200%;
-      background:rgba(255,255,255,0.15);
-      border-radius:50%;
-      transform: translate(-50%,-50%) scale(0);
-      transition: transform .5s var(--ease);
-    }
-    .btn:active::after {
-      transform: translate(-50%,-50%) scale(1);
-      transition: 0s;
+      position:relative; overflow:hidden;
     }
     .btn-yes { background: var(--cyan); color: var(--dark); }
     .btn-no  { background: var(--blue); color: var(--white); }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow:0 4px 16px rgba(0,0,0,0.4);
+    }
+    .btn::after {
+      content:'';
+      position:absolute; top:50%; left:50%;
+      width:200%; height:200%;
+      background:rgba(255,255,255,0.15);
+      border-radius:50%;
+      transform:translate(-50%,-50%) scale(0);
+      transition: transform .5s var(--ease);
+    }
+    .btn:active::after {
+      transform:translate(-50%,-50%) scale(1);
+      transition:0s;
+    }
 
-    /* Resultado final */
-    #summary { text-align:left; }
+    /*========== SUMMARY & FEATURES ==========*/
+    #summary { display:none; text-align:left; }
+    #summary h2 { margin-bottom:16px; }
     #summary ul {
       list-style:none;
-      margin:24px 0;
+      margin-bottom:24px;
     }
     #summary li {
-      display:flex; align-items:center;
-      gap:12px; padding:12px 0;
-      border-bottom:1px solid rgba(255,255,255,0.1);
+      display:flex; align-items:center; gap:12px;
+      margin:12px 0;
       opacity:0; transform: translateX(-20px);
       transition: all .4s var(--ease);
     }
-    #summary li.visible { opacity:1; transform: translateX(0); }
-    #summary li::before {
-      content:'✅';
-      color: var(--cyan);
-      font-size:1.2rem;
+    #summary li.visible {
+      opacity:1; transform: translateX(0);
     }
+    #summary li::before {
+      content:'✅'; color: var(--cyan); font-size:1.2rem;
+    }
+
+    /*========== CTA LINKS ==========*/
     .cta {
-      margin-top:24px;
       display:flex; gap:16px; flex-wrap:wrap;
     }
     .cta a {
-      flex:1 1 45%;
-      text-align:center;
+      flex:1;
       padding:14px 0;
       border-radius:50px;
       font-weight:600;
       text-decoration:none;
+      text-align:center;
       transition: transform .3s var(--ease), box-shadow .3s var(--ease);
-    }
-    .cta a:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
     }
     .cta-sample { background: var(--cyan); color: var(--dark); }
     .cta-buy    { background: var(--blue); color: var(--white); }
+    .cta a:hover {
+      transform: translateY(-3px);
+      box-shadow:0 4px 16px rgba(0,0,0,0.4);
+    }
+
+    /*========== FOOTER ==========*/
+    footer {
+      margin-top:40px;
+      text-align:center;
+      font-size:.9rem;
+      opacity:.7;
+    }
+
+    /*========== RESPONSIVE ==========*/
+    @media(max-width:400px){
+      .btns { flex-direction:column; }
+      .cta { flex-direction:column; }
+    }
   </style>
 </head>
 <body>
+  <div class="background">
+    <div class="shape shape1"></div>
+    <div class="shape shape2"></div>
+  </div>
+  <div class="overlay"></div>
+
   <div id="app">
+    <!-- WIZARD -->
     <div class="card" id="wizard">
       <div class="logo">MANUAL APROVADO</div>
       <h2 id="question">Você tem dificuldade para estudar de forma organizada?</h2>
@@ -148,57 +198,60 @@
       </div>
     </div>
 
-    <div class="card" id="summary" style="display:none;">
+    <!-- SUMMARY -->
+    <div class="card" id="summary">
       <div class="logo">MANUAL APROVADO</div>
       <h2>O que você vai aprender:</h2>
-      <ul id="featureList">
-        <!-- preenchido por JS -->
-      </ul>
+      <ul id="featureList"></ul>
       <div class="cta">
         <a class="cta-sample" href="BAIXAR_AMOSTRA_LINK" target="_blank">📥 Baixar Amostra</a>
-        <a class="cta-buy"    href="ADQUIRIR_AGORA_LINK" target="_blank">💳 Adquirir Agora</a>
+        <a class="cta-buy"    href="ADQUIRIR_AGORA_LINK"  target="_blank">💳 Adquirir Agora</a>
       </div>
     </div>
+    <footer>© 2025 Manual do Aprovado • Todos os direitos reservados</footer>
   </div>
 
   <script>
-    const wizard = document.getElementById('wizard');
-    const summary = document.getElementById('summary');
-    const featureList = document.getElementById('featureList');
-
+    const wizard    = document.getElementById('wizard');
+    const summary   = document.getElementById('summary');
+    const question  = document.getElementById('question');
+    const features  = [
+      'Como montar um ciclo de estudos estratégico e flexível',
+      'Como fazer revisões de forma prática e contínua',
+      'Como controlar suas horas líquidas e estudar com qualidade',
+      'Como usar questões no dia a dia pra fixar e avançar',
+      'Por que não fazer resumos à mão e como grifar com inteligência',
+      'Como, quando e por que ler a lei seca',
+      'Visão de longo prazo + eficiência no curto prazo'
+    ];
     const questions = [
       'Você tem dificuldade para estudar de forma organizada?',
-      'Sente que esquece rapidamente o que estudou?',
-      'Já tentou montar um ciclo de estudos e não conseguiu seguir?',
-      'Gostaria de técnicas práticas de revisão contínua?'
+      'Sente que esquece rápido o que aprendeu?',
+      'Já tentou planejar um ciclo de estudos e não seguiu?',
+      'Quer métodos práticos de revisão contínua?'
     ];
     let idx = 0;
+
     function answer(_) {
       idx++;
       if (idx < questions.length) {
-        document.getElementById('question').innerText = questions[idx];
-        wizard.animate([{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'translateY(0)'}],{duration:400});
+        question.innerText = questions[idx];
+        wizard.animate(
+          [{opacity:0, transform:'translateY(20px)'}, {opacity:1, transform:'translateY(0)'}],
+          {duration:400}
+        );
       } else {
         showSummary();
       }
     }
 
-    function showSummary(){
-      wizard.style.display = 'none';
+    function showSummary() {
+      wizard.style.display  = 'none';
       summary.style.display = 'block';
-      const features = [
-        'Como montar um ciclo de estudos estratégico e flexível',
-        'Como fazer revisões de forma prática e contínua',
-        'Como controlar suas horas líquidas e estudar com qualidade',
-        'Como usar questões no dia a dia pra fixar e avançar',
-        'Por que não fazer resumos à mão e como grifar com inteligência',
-        'Como, quando e por que ler a lei seca',
-        'Visão de longo prazo + eficiência no curto prazo'
-      ];
-      features.forEach((f,i)=>{
+      features.forEach((f,i) => {
         const li = document.createElement('li');
-        li.innerText = f;
-        featureList.appendChild(li);
+        li.textContent = f;
+        document.getElementById('featureList').appendChild(li);
         setTimeout(()=> li.classList.add('visible'), i*150);
       });
     }
