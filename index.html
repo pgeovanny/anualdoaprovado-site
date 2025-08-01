@@ -1,197 +1,148 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Manual do Aprovado • Iniciante</title>
-  <!-- Importa a fonte Inter do Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet"/>
   <style>
-    /*------------------------------------
-      VARIÁVEIS CSS
-    ------------------------------------*/
+    /*========= VARIABLES =========*/
     :root {
       --dark:     #0B0E1E;
       --blue:     #2D7BE9;
       --cyan:     #00F0FF;
       --white:    #F5F5F5;
-      --glass:    rgba(255,255,255,0.05);
+      --glass:    rgba(255,255,255,0.06);
       --radius:   20px;
       --shadow:   0 8px 32px rgba(0,0,0,0.4);
       --ease:     cubic-bezier(.4,0,.2,1);
     }
-    /*------------------------------------
-      RESET & GLOBAL
-    ------------------------------------*/
+    /*========= RESET & GLOBAL =========*/
     * { margin:0; padding:0; box-sizing:border-box; }
-    body, html {
-      width:100%; height:100%;
-      overflow-x:hidden;
-      font-family:'Inter',sans-serif;
+    body,html {
+      width:100%; height:100%; overflow-x:hidden;
       background: linear-gradient(120deg, var(--dark), #11142e);
-      background-size:240% 240%;
-      animation:bgMove 18s ease infinite;
+      background-size:240% 240%; animation:bgMove 18s ease infinite;
+      font-family:'Inter',sans-serif;
       display:flex; align-items:center; justify-content:center;
+      color:var(--white);
     }
     @keyframes bgMove {
       0%{background-position:0% 50%}
       50%{background-position:100% 50%}
       100%{background-position:0% 50%}
     }
-    /*------------------------------------
-      SHAPES FLUTUANTES
-    ------------------------------------*/
     .shape {
       position:absolute; border-radius:50%; filter:blur(120px); z-index:-1;
       animation:float 8s ease-in-out infinite alternate;
     }
-    .shape1 {
-      width:300px; height:300px; background:var(--cyan);
-      top:10%; left:-5%;
-    }
-    .shape2 {
-      width:400px; height:400px; background:var(--blue);
-      top:60%; left:70%; animation-duration:10s;
-    }
-    @keyframes float {
-      to { transform: translateY(40px) translateX(20px); }
-    }
-    /*------------------------------------
-      CONTAINER PRINCIPAL
-    ------------------------------------*/
+    .shape1 {width:300px;height:300px;background:var(--cyan);top:10%;left:-5%;}
+    .shape2 {width:400px;height:400px;background:var(--blue);top:60%;left:70%;animation-duration:10s;}
+    @keyframes float { to{transform:translateY(40px) translateX(20px);} }
+
+    /*========= CONTAINER =========*/
     #app {
-      position:relative;
-      width:100%; max-width:420px;
-      padding:40px 16px;
-      color:var(--white);
+      width:100%; max-width:420px; padding:40px 16px; position:relative;
     }
     .card {
-      background: var(--glass);
-      backdrop-filter: blur(12px);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding:32px 24px;
-      text-align:center;
-      margin-bottom:40px;
-      animation:fadeIn 0.6s var(--ease) both;
+      background: var(--glass); backdrop-filter:blur(12px);
+      border-radius:var(--radius); box-shadow:var(--shadow);
+      padding:32px 24px; text-align:center; margin-bottom:40px;
+      animation:fadeIn .6s var(--ease) both;
     }
-    @keyframes fadeIn {
-      from {opacity:0; transform:translateY(20px);}
-      to   {opacity:1; transform:translateY(0);}
-    }
-    /*------------------------------------
-      ROBÔ EM CSS
-    ------------------------------------*/
+    @keyframes fadeIn { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+
+    /*========= ROBÔ =========*/
     .robot {
-      position: relative;
-      width:120px; height:120px;
-      margin: 0 auto 16px;
-      border-radius:50%;
-      background: radial-gradient(circle at 30% 30%,var(--cyan),var(--blue));
-      box-shadow:0 0 16px var(--cyan),0 0 32px var(--blue);
+      position:relative; width:120px; height:120px; margin:0 auto 16px;
+      background:radial-gradient(circle at 30% 30%,var(--cyan),var(--blue));
+      border-radius:50%; box-shadow:0 0 16px var(--cyan),0 0 32px var(--blue);
       animation:robotPop 1s ease-out both;
     }
-    @keyframes robotPop {
-      from {transform:scale(0.3); opacity:0;}
-      to   {transform:scale(1);   opacity:1;}
-    }
+    @keyframes robotPop { from{transform:scale(0.3);opacity:0;} to{transform:scale(1);opacity:1;} }
     .robot .eye {
-      position:absolute;
-      width:16px; height:16px;
-      background:var(--white);
-      border-radius:50%;
-      top:40%;
-      animation:blink 4s infinite steps(1);
+      position:absolute; width:16px; height:16px; background:var(--white); border-radius:50%;
+      top:40%; animation:blink 4s infinite steps(1);
     }
     .robot .eye.left  { left:30%; }
     .robot .eye.right { right:30%; }
-    @keyframes blink {
-      0%,90%,100%{transform:scaleY(1);}
-      95%{transform:scaleY(0.1);}
-    }
+    @keyframes blink { 0%,90%,100%{transform:scaleY(1);} 95%{transform:scaleY(0.1);} }
     .robot .antenna {
-      position:absolute;
-      width:4px; height:32px;
-      background:var(--white);
-      top:-10px; left:50%;
-      transform:translateX(-50%);
+      position:absolute; width:4px; height:32px; background:var(--white);
+      top:-10px; left:50%; transform:translateX(-50%);
     }
     .robot .antenna::after {
-      content:'';
-      position:absolute;
-      width:12px; height:12px;
-      background:var(--white);
-      border-radius:50%;
-      top:-8px; left:-4px;
-      animation:blink 4s infinite steps(1) .2s;
+      content:''; position:absolute; width:12px; height:12px; background:var(--white);
+      border-radius:50%; top:-8px; left:-4px; animation:blink 4s infinite steps(1) .2s;
     }
-    /*------------------------------------
-      BOAS-VINDAS
-    ------------------------------------*/
+
+    /*========= WELCOME =========*/
     #welcome h1 {
-      font-size:1.8rem;
-      margin-bottom:12px;
+      font-family:'Montserrat',sans-serif; font-weight:800;
+      font-size:1.8rem; margin-bottom:12px;
     }
     #welcome p {
-      font-size:1rem;
-      line-height:1.4;
-      margin-bottom:8px;
-      opacity:.9;
+      font-size:1rem; line-height:1.4; opacity:.9; margin-bottom:8px;
     }
-    /*------------------------------------
-      BOTÕES
-    ------------------------------------*/
+
+    /*========= BUTTON BASE =========*/
     .btn {
-      display:inline-block;
-      margin-top:16px;
-      padding:12px 32px;
-      border:none;
-      border-radius:50px;
-      font-weight:600;
-      position:relative;
-      overflow:hidden;
-      cursor:pointer;
+      display:inline-block; margin-top:16px; padding:12px 32px;
+      border:none; border-radius:50px; font-weight:600; position:relative;
+      overflow:hidden; cursor:pointer;
       transition:transform .3s var(--ease), box-shadow .3s var(--ease);
     }
     .btn-start { background:var(--cyan); color:var(--dark); }
     .btn-start:hover {
-      transform:translateY(-3px);
-      box-shadow:0 4px 16px rgba(0,0,0,0.4);
+      transform:translateY(-3px); box-shadow:0 4px 16px rgba(0,0,0,0.4);
     }
     .btn-start::after {
-      content:'';
-      position:absolute;
-      top:50%; left:50%;
-      width:200%; height:200%;
-      background:rgba(255,255,255,0.2);
-      border-radius:50%;
-      transform:translate(-50%,-50%) scale(0);
+      content:''; position:absolute; top:50%; left:50%;
+      width:200%; height:200%; background:rgba(255,255,255,0.2);
+      border-radius:50%; transform:translate(-50%,-50%) scale(0);
       transition:transform .5s var(--ease);
     }
     .btn-start:active::after {
-      transform:translate(-50%,-50%) scale(1);
-      transition:0s;
+      transform:translate(-50%,-50%) scale(1); transition:0s;
     }
-    /*------------------------------------
-      SEÇÃO MANUAL
-    ------------------------------------*/
+
+    /*========= CHALLENGES =========*/
+    #challenges h2 {
+      font-family:'Montserrat',sans-serif; font-weight:700;
+      font-size:1.5rem; margin-bottom:16px;
+    }
+    #challenges ul {
+      list-style:none; text-align:left; margin-bottom:24px;
+    }
+    #challenges li {
+      position:relative; padding-left:32px; margin:12px 0;
+      opacity:0; transform:translateX(-20px);
+      transition:all .4s var(--ease);
+    }
+    #challenges li.visible {
+      opacity:1; transform:translateX(0);
+    }
+    #challenges li::before {
+      content:'⚠️'; position:absolute; left:0; top:0; font-size:1.2rem;
+    }
+    .btn-next {
+      background:var(--blue); color:var(--white);
+    }
+
+    /*========= MANUAL =========*/
     #manual h2 {
-      font-size:1.6rem;
-      margin-bottom:4px;
+      font-family:'Montserrat',sans-serif;font-weight:800;
+      font-size:1.6rem;margin-bottom:4px;
     }
     #manual .version {
-      font-size:1rem;
-      color:var(--cyan);
-      margin-bottom:16px;
+      color:var(--cyan);font-weight:600;margin-bottom:16px;
     }
     #manual ul {
-      list-style:none;
-      text-align:left;
-      margin-bottom:24px;
+      list-style:none; text-align:left; margin-bottom:24px;
     }
     #manual li {
-      display:flex; align-items:center; gap:12px;
-      margin:12px 0;
+      display:flex; align-items:center; gap:12px; padding:8px 0;
+      border-bottom:1px solid rgba(255,255,255,0.15);
       opacity:0; transform:translateX(-20px);
       transition:all .4s var(--ease);
     }
@@ -199,40 +150,28 @@
       opacity:1; transform:translateX(0);
     }
     #manual li::before {
-      content:'✅';
-      color:var(--cyan);
-      font-size:1.2rem;
+      content:'✅'; color:var(--cyan); font-size:1.2rem;
     }
     .cta {
       display:flex; gap:16px; flex-wrap:wrap; justify-content:center;
     }
     .cta a {
-      flex:1 1 45%;
-      padding:12px 0;
-      border-radius:50px;
-      font-weight:600;
-      text-align:center;
-      text-decoration:none;
+      flex:1 1 45%; padding:12px 0; border-radius:50px;
+      font-weight:600; text-align:center; text-decoration:none;
       transition:transform .3s var(--ease), box-shadow .3s var(--ease);
     }
     .cta-sample { background:var(--cyan); color:var(--dark); }
     .cta-buy    { background:var(--blue); color:var(--white); }
     .cta a:hover {
-      transform:translateY(-3px);
-      box-shadow:0 4px 16px rgba(0,0,0,0.4);
+      transform:translateY(-3px); box-shadow:0 4px 16px rgba(0,0,0,0.4);
     }
-    /*------------------------------------
-      RODAPÉ
-    ------------------------------------*/
+
+    /*========= FOOTER =========*/
     footer {
-      text-align:center;
-      font-size:.85rem;
-      opacity:.6;
-      margin-top:20px;
+      text-align:center; font-size:.85rem; opacity:.6; margin-top:20px;
     }
-    /*------------------------------------
-      RESPONSIVO
-    ------------------------------------*/
+
+    /*========= RESPONSIVE =========*/
     @media(max-width:400px){
       .cta, .btn { flex-direction:column; }
       .cta a { flex:none; }
@@ -240,12 +179,12 @@
   </style>
 </head>
 <body>
-  <!-- shapes de fundo -->
+  <!-- Background shapes -->
   <div class="shape shape1"></div>
   <div class="shape shape2"></div>
 
   <div id="app">
-    <!-- Boas-vindas -->
+    <!-- WELCOME -->
     <div class="card" id="welcome">
       <div class="robot">
         <div class="eye left"></div>
@@ -255,10 +194,22 @@
       <h1>Parabéns!</h1>
       <p>Você acaba de encurtar seu tempo de estudos para concurso.</p>
       <p>Se você é iniciante e quer passar rápido, está no lugar certo.</p>
-      <button class="btn btn-start" onclick="showManual()">Vamos lá!</button>
+      <button class="btn btn-start" onclick="goChallenges()">Vamos lá!</button>
     </div>
 
-    <!-- Seção Manual -->
+    <!-- CHALLENGES -->
+    <div class="card" id="challenges" style="display:none;">
+      <h2>Desafios de estudar sozinho</h2>
+      <ul id="challengeList">
+        <li>Falta de planejamento claro</li>
+        <li>Revisões sem método não fixam o conteúdo</li>
+        <li>Questões soltas sem estratégia</li>
+        <li>Desmotivação sem resultados rápidos</li>
+      </ul>
+      <button class="btn btn-next" onclick="showManual()">Continuar</button>
+    </div>
+
+    <!-- MANUAL -->
     <div class="card" id="manual" style="display:none;">
       <h2>Manual do Aprovado</h2>
       <p class="version">Versão do Iniciante</p>
@@ -281,14 +232,23 @@
   </div>
 
   <script>
-    function showManual(){
+    function goChallenges(){
       document.getElementById('welcome').style.display = 'none';
+      const c = document.getElementById('challenges');
+      c.style.display = 'block';
+      c.scrollIntoView({behavior:'smooth'});
+      // animate challenges
+      document.querySelectorAll('#challengeList li')
+        .forEach((li,i)=>setTimeout(()=>li.classList.add('visible'), i*200));
+    }
+    function showManual(){
+      document.getElementById('challenges').style.display = 'none';
       const m = document.getElementById('manual');
       m.style.display = 'block';
       m.scrollIntoView({behavior:'smooth'});
-      // anima bullets
-      const items = document.querySelectorAll('#featureList li');
-      items.forEach((li,i)=> setTimeout(()=> li.classList.add('visible'), i*150));
+      // animate features
+      document.querySelectorAll('#featureList li')
+        .forEach((li,i)=>setTimeout(()=>li.classList.add('visible'), i*150));
     }
   </script>
 </body>
