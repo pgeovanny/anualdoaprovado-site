@@ -6,186 +6,222 @@
   <title>Manual do Aprovado • Iniciante</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet"/>
   <style>
-    /*========= VARIABLES =========*/
+    /*-----------------------------------
+      VARS
+    -----------------------------------*/
     :root {
-      --dark:     #0B0E1E;
-      --blue:     #2D7BE9;
-      --cyan:     #00F0FF;
-      --white:    #F5F5F5;
-      --glass:    rgba(255,255,255,0.06);
-      --radius:   20px;
-      --shadow:   0 8px 32px rgba(0,0,0,0.4);
-      --ease:     cubic-bezier(.4,0,.2,1);
+      --dark:   #0B0E1E;
+      --blue:   #2D7BE9;
+      --cyan:   #00F0FF;
+      --white:  #F5F5F5;
+      --glass:  rgba(255,255,255,0.06);
+      --rad:    20px;
+      --sh:     0 8px 32px rgba(0,0,0,0.4);
+      --ease:   cubic-bezier(.4,0,.2,1);
     }
-    /*========= RESET & GLOBAL =========*/
-    * { margin:0; padding:0; box-sizing:border-box; }
+    /*-----------------------------------
+      RESET + GLOBAL
+    -----------------------------------*/
+    *{margin:0;padding:0;box-sizing:border-box;}
     body,html {
-      width:100%; height:100%; overflow-x:hidden;
-      background: linear-gradient(120deg, var(--dark), #11142e);
-      background-size:240% 240%; animation:bgMove 18s ease infinite;
-      font-family:'Inter',sans-serif;
-      display:flex; align-items:center; justify-content:center;
-      color:var(--white);
+      width:100%;height:100%;overflow:hidden;
+      background: linear-gradient(120deg,var(--dark),#11142e);
+      background-size:240% 240%;animation:bgAnim 20s ease infinite;
+      font-family:'Inter',sans-serif;color:var(--white);
+      display:flex;align-items:center;justify-content:center;
     }
-    @keyframes bgMove {
+    @keyframes bgAnim{
       0%{background-position:0% 50%}
       50%{background-position:100% 50%}
       100%{background-position:0% 50%}
     }
+    /*-----------------------------------
+      SHAPES
+    -----------------------------------*/
     .shape {
-      position:absolute; border-radius:50%; filter:blur(120px); z-index:-1;
+      position:absolute;border-radius:50%;filter:blur(120px);z-index:-2;
       animation:float 8s ease-in-out infinite alternate;
     }
-    .shape1 {width:300px;height:300px;background:var(--cyan);top:10%;left:-5%;}
-    .shape2 {width:400px;height:400px;background:var(--blue);top:60%;left:70%;animation-duration:10s;}
-    @keyframes float { to{transform:translateY(40px) translateX(20px);} }
-
-    /*========= CONTAINER =========*/
+    .shape1{width:300px;height:300px;background:var(--cyan);top:10%;left:-5%;}
+    .shape2{width:400px;height:400px;background:var(--blue);top:60%;left:70%;animation-duration:10s;}
+    @keyframes float{to{transform:translateY(40px) translateX(20px)}}
+    /*-----------------------------------
+      GLAZE (ICE TEXTURE)
+    -----------------------------------*/
+    .glaze {
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      background:
+        repeating-linear-gradient(45deg,rgba(255,255,255,0.04)0 2px,transparent 2px 6px),
+        repeating-linear-gradient(-45deg,rgba(255,255,255,0.04)0 2px,transparent 2px 6px);
+      pointer-events:none;z-index:-1;
+    }
+    /*-----------------------------------
+      LIGHTNING
+    -----------------------------------*/
+    .lightning {
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      background:rgba(255,255,255,0.3);opacity:0;
+      animation:flash 3s infinite step-end;
+      pointer-events:none;z-index:2;
+    }
+    @keyframes flash{
+      0%,10%,20%,30%,100%{opacity:0;}
+      5%,25%{opacity:1;}
+    }
+    /*-----------------------------------
+      APP CONTAINER
+    -----------------------------------*/
     #app {
-      width:100%; max-width:420px; padding:40px 16px; position:relative;
+      position:relative;z-index:1;
+      width:100%;max-width:420px;padding:40px 16px;
     }
     .card {
-      background: var(--glass); backdrop-filter:blur(12px);
-      border-radius:var(--radius); box-shadow:var(--shadow);
-      padding:32px 24px; text-align:center; margin-bottom:40px;
+      background:var(--glass);backdrop-filter:blur(12px);
+      border-radius:var(--rad);box-shadow:var(--sh);
+      padding:32px 24px;text-align:center;margin-bottom:40px;
       animation:fadeIn .6s var(--ease) both;
     }
-    @keyframes fadeIn { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
-
-    /*========= ROBÔ =========*/
-    .robot {
-      position:relative; width:120px; height:120px; margin:0 auto 16px;
-      background:radial-gradient(circle at 30% 30%,var(--cyan),var(--blue));
-      border-radius:50%; box-shadow:0 0 16px var(--cyan),0 0 32px var(--blue);
-      animation:robotPop 1s ease-out both;
-    }
-    @keyframes robotPop { from{transform:scale(0.3);opacity:0;} to{transform:scale(1);opacity:1;} }
-    .robot .eye {
-      position:absolute; width:16px; height:16px; background:var(--white); border-radius:50%;
-      top:40%; animation:blink 4s infinite steps(1);
-    }
-    .robot .eye.left  { left:30%; }
-    .robot .eye.right { right:30%; }
-    @keyframes blink { 0%,90%,100%{transform:scaleY(1);} 95%{transform:scaleY(0.1);} }
-    .robot .antenna {
-      position:absolute; width:4px; height:32px; background:var(--white);
-      top:-10px; left:50%; transform:translateX(-50%);
-    }
-    .robot .antenna::after {
-      content:''; position:absolute; width:12px; height:12px; background:var(--white);
-      border-radius:50%; top:-8px; left:-4px; animation:blink 4s infinite steps(1) .2s;
-    }
-
-    /*========= WELCOME =========*/
-    #welcome h1 {
-      font-family:'Montserrat',sans-serif; font-weight:800;
-      font-size:1.8rem; margin-bottom:12px;
-    }
-    #welcome p {
-      font-size:1rem; line-height:1.4; opacity:.9; margin-bottom:8px;
-    }
-
-    /*========= BUTTON BASE =========*/
+    @keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+    /*-----------------------------------
+      BUTTON BASE
+    -----------------------------------*/
     .btn {
-      display:inline-block; margin-top:16px; padding:12px 32px;
-      border:none; border-radius:50px; font-weight:600; position:relative;
-      overflow:hidden; cursor:pointer;
-      transition:transform .3s var(--ease), box-shadow .3s var(--ease);
+      display:inline-block;margin-top:16px;padding:12px 32px;
+      border:none;border-radius:50px;font-weight:600;cursor:pointer;
+      position:relative;overflow:hidden;
+      transition:transform .3s var(--ease),box-shadow .3s var(--ease);
     }
-    .btn-start { background:var(--cyan); color:var(--dark); }
-    .btn-start:hover {
-      transform:translateY(-3px); box-shadow:0 4px 16px rgba(0,0,0,0.4);
-    }
-    .btn-start::after {
-      content:''; position:absolute; top:50%; left:50%;
-      width:200%; height:200%; background:rgba(255,255,255,0.2);
-      border-radius:50%; transform:translate(-50%,-50%) scale(0);
+    .btn:hover{transform:translateY(-3px);box-shadow:0 4px 16px rgba(0,0,0,0.4);}
+    .btn::after{
+      content:'';position:absolute;top:50%;left:50%;
+      width:200%;height:200%;background:rgba(255,255,255,0.2);
+      border-radius:50%;transform:translate(-50%,-50%) scale(0);
       transition:transform .5s var(--ease);
     }
-    .btn-start:active::after {
-      transform:translate(-50%,-50%) scale(1); transition:0s;
-    }
+    .btn:active::after{transform:translate(-50%,-50%) scale(1);transition:0s;}
 
-    /*========= CHALLENGES =========*/
-    #challenges h2 {
-      font-family:'Montserrat',sans-serif; font-weight:700;
-      font-size:1.5rem; margin-bottom:16px;
+    /*-----------------------------------
+      LANDING
+    -----------------------------------*/
+    #landing {
+      position:fixed;inset:0;
+      display:flex;flex-direction:column;
+      align-items:center;justify-content:center;
+      background:var(--dark);z-index:3;
+      text-align:center;color:var(--cyan);
     }
-    #challenges ul {
-      list-style:none; text-align:left; margin-bottom:24px;
-    }
-    #challenges li {
-      position:relative; padding-left:32px; margin:12px 0;
-      opacity:0; transform:translateX(-20px);
-      transition:all .4s var(--ease);
-    }
-    #challenges li.visible {
-      opacity:1; transform:translateX(0);
-    }
-    #challenges li::before {
-      content:'⚠️'; position:absolute; left:0; top:0; font-size:1.2rem;
-    }
-    .btn-next {
-      background:var(--blue); color:var(--white);
-    }
-
-    /*========= MANUAL =========*/
-    #manual h2 {
+    #landing h1 {
       font-family:'Montserrat',sans-serif;font-weight:800;
-      font-size:1.6rem;margin-bottom:4px;
+      font-size:2.4rem;text-shadow:0 0 8px var(--cyan);
+      margin-bottom:24px;
     }
-    #manual .version {
-      color:var(--cyan);font-weight:600;margin-bottom:16px;
+    #landing .btn-start {
+      background:var(--cyan);color:var(--dark);
     }
-    #manual ul {
-      list-style:none; text-align:left; margin-bottom:24px;
+
+    /*-----------------------------------
+      ROBÔ & WELCOME
+    -----------------------------------*/
+    .robot {
+      position:relative;width:120px;height:120px;margin:0 auto 16px;
+      background:radial-gradient(circle at 30% 30%,var(--cyan),var(--blue));
+      border-radius:50%;box-shadow:0 0 16px var(--cyan),0 0 32px var(--blue);
+      animation:robotPop 1s ease-out both;
     }
-    #manual li {
-      display:flex; align-items:center; gap:12px; padding:8px 0;
-      border-bottom:1px solid rgba(255,255,255,0.15);
-      opacity:0; transform:translateX(-20px);
+    @keyframes robotPop{from{transform:scale(0.3);opacity:0;}to{transform:scale(1);opacity:1;}}
+    .robot .eye {
+      position:absolute;width:16px;height:16px;background:var(--white);
+      border-radius:50%;top:40%;animation:blink 4s infinite steps(1);
+    }
+    .robot .eye.left{left:30%;} .robot .eye.right{right:30%;}
+    @keyframes blink{0%,90%,100%{transform:scaleY(1);}95%{transform:scaleY(0.1);}}
+    .robot .antenna{position:absolute;width:4px;height:32px;background:var(--white);top:-10px;left:50%;transform:translateX(-50%);}
+    .robot .antenna::after{content:'';position:absolute;width:12px;height:12px;background:var(--white);border-radius:50%;top:-8px;left:-4px;animation:blink 4s infinite steps(1) .2s;}
+
+    #welcome h1 {
+      font-family:'Montserrat',sans-serif;font-weight:800;
+      font-size:1.8rem;margin-bottom:12px;color:var(--cyan);
+    }
+    #welcome p {
+      font-size:1rem;line-height:1.4;opacity:.9;margin-bottom:8px;
+    }
+
+    /*-----------------------------------
+      CHALLENGES
+    -----------------------------------*/
+    #challenges h2 {
+      font-family:'Montserrat',sans-serif;font-weight:700;
+      font-size:1.5rem;margin-bottom:16px;color:var(--cyan);
+    }
+    #challenges ul{
+      list-style:none;text-align:left;margin-bottom:24px;
+    }
+    #challenges li{
+      position:relative;padding-left:32px;margin:12px 0;
+      opacity:0;transform:translateX(-20px);
       transition:all .4s var(--ease);
     }
-    #manual li.visible {
-      opacity:1; transform:translateX(0);
-    }
-    #manual li::before {
-      content:'✅'; color:var(--cyan); font-size:1.2rem;
-    }
-    .cta {
-      display:flex; gap:16px; flex-wrap:wrap; justify-content:center;
-    }
-    .cta a {
-      flex:1 1 45%; padding:12px 0; border-radius:50px;
-      font-weight:600; text-align:center; text-decoration:none;
-      transition:transform .3s var(--ease), box-shadow .3s var(--ease);
-    }
-    .cta-sample { background:var(--cyan); color:var(--dark); }
-    .cta-buy    { background:var(--blue); color:var(--white); }
-    .cta a:hover {
-      transform:translateY(-3px); box-shadow:0 4px 16px rgba(0,0,0,0.4);
-    }
+    #challenges li.visible{opacity:1;transform:translateX(0);}
+    #challenges li::before{content:'⚠️';position:absolute;left:0;top:0;font-size:1.2rem;}
 
-    /*========= FOOTER =========*/
-    footer {
-      text-align:center; font-size:.85rem; opacity:.6; margin-top:20px;
+    /*-----------------------------------
+      MANUAL
+    -----------------------------------*/
+    #manual h2{
+      font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.6rem;margin-bottom:4px;color:var(--cyan);
     }
+    #manual .version{
+      font-weight:600;margin-bottom:16px;color:var(--white);
+    }
+    #manual ul{list-style:none;text-align:left;margin-bottom:24px;}
+    #manual li{
+      display:flex;align-items:center;gap:12px;padding:8px 0;
+      border-bottom:1px solid rgba(255,255,255,0.15);
+      opacity:0;transform:translateX(-20px);
+      transition:all .4s var(--ease);
+    }
+    #manual li.visible{opacity:1;transform:translateX(0);}
+    #manual li::before{content:'✅';color:var(--cyan);font-size:1.2rem;}
 
-    /*========= RESPONSIVE =========*/
+    .cta{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
+    .cta a{
+      flex:1 1 45%;padding:12px 0;border-radius:50px;font-weight:600;
+      text-decoration:none;text-align:center;
+      transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+    }
+    .cta-sample{background:var(--cyan);color:var(--dark);} 
+    .cta-buy{background:var(--blue);color:var(--white);}
+    .cta a:hover{transform:translateY(-3px);box-shadow:0 4px 16px rgba(0,0,0,0.4);}
+
+    /*-----------------------------------
+      FOOTER
+    -----------------------------------*/
+    footer{margin-top:20px;text-align:center;font-size:.85rem;opacity:.6;}
+    /*-----------------------------------
+      RESPONSIVE
+    -----------------------------------*/
     @media(max-width:400px){
-      .cta, .btn { flex-direction:column; }
-      .cta a { flex:none; }
+      .cta, .btn {flex-direction:column;}
+      .cta a{flex:none;}
     }
   </style>
 </head>
 <body>
-  <!-- Background shapes -->
+  <!-- Shapes + glaze + lightning -->
   <div class="shape shape1"></div>
   <div class="shape shape2"></div>
+  <div class="glaze"></div>
+  <div class="lightning"></div>
 
   <div id="app">
+    <!-- LANDING -->
+    <div class="card" id="landing">
+      <h1>Bem-vindo ao Manual do Aprovado</h1>
+      <button class="btn btn-start" onclick="startFlow()">Entrar</button>
+    </div>
+
     <!-- WELCOME -->
-    <div class="card" id="welcome">
+    <div class="card" id="welcome" style="display:none;">
       <div class="robot">
         <div class="eye left"></div>
         <div class="eye right"></div>
@@ -194,19 +230,19 @@
       <h1>Parabéns!</h1>
       <p>Você acaba de encurtar seu tempo de estudos para concurso.</p>
       <p>Se você é iniciante e quer passar rápido, está no lugar certo.</p>
-      <button class="btn btn-start" onclick="goChallenges()">Vamos lá!</button>
+      <button class="btn btn-start" onclick="goChallenges()">Prosseguir</button>
     </div>
 
     <!-- CHALLENGES -->
     <div class="card" id="challenges" style="display:none;">
       <h2>Desafios de estudar sozinho</h2>
       <ul id="challengeList">
-        <li>Falta de planejamento claro</li>
-        <li>Revisões sem método não fixam o conteúdo</li>
-        <li>Questões soltas sem estratégia</li>
-        <li>Desmotivação sem resultados rápidos</li>
+        <li>Planejar sem orientação clara</li>
+        <li>Revisar sem método eficaz</li>
+        <li>Resolver questões sem estratégia</li>
+        <li>Mant er a motivação com resultados lentos</li>
       </ul>
-      <button class="btn btn-next" onclick="showManual()">Continuar</button>
+      <button class="btn btn-start btn-next" onclick="showManual()">Próximo</button>
     </div>
 
     <!-- MANUAL -->
@@ -232,12 +268,16 @@
   </div>
 
   <script>
+    function startFlow(){
+      document.getElementById('landing').remove();
+      document.getElementById('welcome').style.display = 'block';
+      document.getElementById('welcome').scrollIntoView({behavior:'smooth'});
+    }
     function goChallenges(){
       document.getElementById('welcome').style.display = 'none';
       const c = document.getElementById('challenges');
       c.style.display = 'block';
       c.scrollIntoView({behavior:'smooth'});
-      // animate challenges
       document.querySelectorAll('#challengeList li')
         .forEach((li,i)=>setTimeout(()=>li.classList.add('visible'), i*200));
     }
@@ -246,7 +286,6 @@
       const m = document.getElementById('manual');
       m.style.display = 'block';
       m.scrollIntoView({behavior:'smooth'});
-      // animate features
       document.querySelectorAll('#featureList li')
         .forEach((li,i)=>setTimeout(()=>li.classList.add('visible'), i*150));
     }
