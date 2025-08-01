@@ -5,256 +5,121 @@
   <title>Manual do Aprovado • Iniciante</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
-    /*========== VARS ==========*/
+    /*========== VARIÁVEIS ==========*/
     :root {
-      --dark: #0B0E1E;
-      --blue: #2D7BE9;
-      --cyan: #00F0FF;
-      --white: #F5F5F5;
-      --glass: rgba(255,255,255,0.05);
-      --radius: 20px;
-      --shadow: 0 8px 32px rgba(0,0,0,0.4);
-      --ease: cubic-bezier(.4,0,.2,1);
+      --dark:      #0B0E1E;
+      --blue:      #2D7BE9;
+      --cyan:      #00F0FF;
+      --white:     #F5F5F5;
+      --glass:     rgba(255,255,255,0.05);
+      --radius:    20px;
+      --shadow:    0 8px 32px rgba(0,0,0,0.4);
+      --ease:      cubic-bezier(.4,0,.2,1);
     }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body, html {
-      width:100%; height:100%;
-      font-family:'Inter',sans-serif;
-      background: var(--dark);
-      overflow-x:hidden;
+    /*========== RESET ==========*/
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body, html {width:100%; height:100%; overflow-x:hidden; font-family: 'Inter', sans-serif;}
+    a {text-decoration:none; color:inherit;}
+    /*========== BACKGROUND ANIMADO ==========*/
+    body {
+      background: linear-gradient(120deg, var(--dark), #11142e);
+      background-size: 240% 240%;
+      animation: bgMove 18s ease infinite;
     }
-    /*========== BACKGROUND SHAPES + TEXTURE ==========*/
-    .background, .overlay {
-      position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none;
+    @keyframes bgMove {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
     }
-    .background .shape {
-      position:absolute; border-radius:50%; filter:blur(120px);
+    .shape {
+      position: absolute; border-radius:50%; filter:blur(120px); z-index:-1;
       animation: float 8s ease-in-out infinite alternate;
     }
-    .background .shape1 {
-      width:300px; height:300px;
-      background: var(--cyan);
-      top:10%; left:-5%;
-    }
-    .background .shape2 {
-      width:400px; height:400px;
-      background: var(--blue);
-      top:60%; left:70%;
-      animation-duration: 10s;
-    }
-    @keyframes float {
-      to { transform: translateY(40px) translateX(20px) }
-    }
-    .overlay {
-      background:
-        repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 5px),
-        repeating-linear-gradient(-45deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 5px);
-    }
+    .shape1 {width:300px; height:300px; background:var(--cyan); top:10%; left:-5%;}
+    .shape2 {width:400px; height:400px; background:var(--blue); top:60%; left:70%; animation-duration:10s;}
+    @keyframes float {to{transform: translateY(40px) translateX(20px)}}
 
-    /*========== CONTAINER ==========*/
-    #app {
-      position:relative;
-      max-width: 420px;
-      margin: auto;
-      padding: 60px 16px;
-      z-index:1;
-    }
+    /*========== CONTAINER =========*/
+    #app {position:relative; max-width: 420px; margin: auto; padding: 40px 16px; color:var(--white);}
+
+    /*========== CARD BASE =========*/
     .card {
-      background: var(--glass);
-      backdrop-filter: blur(12px);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 32px 24px;
-      text-align: center;
-      color: var(--white);
+      background: var(--glass); backdrop-filter: blur(12px);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 32px 24px; text-align:center; margin-bottom:40px;
       animation: fadeIn 0.6s var(--ease) both;
     }
-    @keyframes fadeIn {
-      from {opacity:0; transform: translateY(30px)}
-      to   {opacity:1; transform: translateY(0)}
+    @keyframes fadeIn {from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)}}
+
+    /*========== LOGO/ROBÔ ==========*/
+    .robot {
+      position: relative; width:120px; height:120px; margin:0 auto 16px;
+      border-radius:50%; background: radial-gradient(circle at 30% 30%,var(--cyan),var(--blue));
+      box-shadow:0 0 16px var(--cyan),0 0 32px var(--blue);
+      animation: robotPop 1s ease-out both;
+    }
+    @keyframes robotPop {from{transform:scale(0.3);opacity:0}to{transform:scale(1);opacity:1}}
+    .eye {
+      position:absolute; width:16px; height:16px;
+      background:var(--white); border-radius:50%; top:40%;
+      animation: blink 4s infinite steps(1);
+    }
+    .eye.left {left:30%;}
+    .eye.right {right:30%;}
+    @keyframes blink {0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(0.1)}}
+    .antenna {
+      position:absolute; width:4px; height:32px; background:var(--white);
+      top:-10px; left:50%; transform:translateX(-50%);
+    }
+    .antenna::after {
+      content:""; position:absolute; width:12px; height:12px; background:var(--white);
+      border-radius:50%; top:-8px; left:-4px;
+      animation: blink 4s infinite steps(1) .2s;
     }
 
-    /*========== LOGO & TITLES ==========*/
-    .logo {
-      font-size:2.4rem;
-      font-weight:800;
-      color: var(--cyan);
-      text-shadow:0 0 8px var(--cyan);
-      margin-bottom:12px;
-      animation: fadeIn 0.6s .2s both;
+    /*========== BOAS-VINDAS ==========*/
+    #welcome h1 {
+      font-size:1.75rem; font-weight:600; margin-bottom:12px;
     }
-    h2 {
-      font-size:1.6rem;
-      margin-bottom:16px;
-    }
-    p { font-size:1rem; opacity:.9; margin-bottom:24px; }
-
-    /*========== WIZARD BUTTONS ==========*/
-    .btns {
-      display:flex;
-      gap:16px;
-      justify-content:center;
+    #welcome p {
+      font-size:1rem; line-height:1.4; margin-bottom:8px; opacity:.9;
     }
     .btn {
-      flex:1;
-      padding:12px 0;
-      border:none;
-      border-radius:50px;
-      font-weight:600;
-      cursor:pointer;
-      transition: transform .3s var(--ease), box-shadow .3s var(--ease);
-      position:relative; overflow:hidden;
+      display:inline-block; margin-top:16px;
+      padding:12px 32px; border:none; border-radius:50px;
+      font-weight:600; cursor:pointer; position:relative; overflow:hidden;
+      transition:transform .3s var(--ease),box-shadow .3s var(--ease);
     }
-    .btn-yes { background: var(--cyan); color: var(--dark); }
-    .btn-no  { background: var(--blue); color: var(--white); }
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow:0 4px 16px rgba(0,0,0,0.4);
+    .btn-start {background:var(--cyan); color:var(--dark);}
+    .btn-start:hover {transform:translateY(-3px);box-shadow:0 4px 16px rgba(0,0,0,0.4);}
+    .btn-start::after {
+      content:""; position:absolute;top:50%;left:50%;width:200%;height:200%;
+      background:rgba(255,255,255,0.2);border-radius:50%;
+      transform:translate(-50%,-50%) scale(0);transition:transform .5s var(--ease);
     }
-    .btn::after {
-      content:'';
-      position:absolute; top:50%; left:50%;
-      width:200%; height:200%;
-      background:rgba(255,255,255,0.15);
-      border-radius:50%;
-      transform:translate(-50%,-50%) scale(0);
-      transition: transform .5s var(--ease);
-    }
-    .btn:active::after {
-      transform:translate(-50%,-50%) scale(1);
-      transition:0s;
-    }
+    .btn-start:active::after {transform:translate(-50%,-50%) scale(1);transition:0s;}
 
-    /*========== SUMMARY & FEATURES ==========*/
-    #summary { display:none; text-align:left; }
-    #summary h2 { margin-bottom:16px; }
-    #summary ul {
-      list-style:none;
-      margin-bottom:24px;
+    /*========== MANUAL =========*/
+    #manual h2 {
+      font-size:1.6rem; margin-bottom:4px;
     }
-    #summary li {
-      display:flex; align-items:center; gap:12px;
-      margin:12px 0;
-      opacity:0; transform: translateX(-20px);
-      transition: all .4s var(--ease);
+    #manual .version {
+      font-size:1rem; color:var(--cyan); margin-bottom:16px;
     }
-    #summary li.visible {
-      opacity:1; transform: translateX(0);
+    #manual ul {
+      list-style:none; text-align:left; margin-bottom:24px;
     }
-    #summary li::before {
-      content:'✅'; color: var(--cyan); font-size:1.2rem;
+    #manual li {
+      display:flex;align-items:center;gap:12px;padding:8px 0;
+      border-bottom:1px solid rgba(255,255,255,0.1);
+      opacity:0;transform:translateX(-20px);
+      transition:all .4s var(--ease);
     }
+    #manual li.visible {opacity:1;transform:translateX(0);}
+    #manual li::before {content:'✅';color:var(--cyan);font-size:1.1rem;}
 
-    /*========== CTA LINKS ==========*/
     .cta {
-      display:flex; gap:16px; flex-wrap:wrap;
+      display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
     }
     .cta a {
-      flex:1;
-      padding:14px 0;
-      border-radius:50px;
-      font-weight:600;
-      text-decoration:none;
-      text-align:center;
-      transition: transform .3s var(--ease), box-shadow .3s var(--ease);
-    }
-    .cta-sample { background: var(--cyan); color: var(--dark); }
-    .cta-buy    { background: var(--blue); color: var(--white); }
-    .cta a:hover {
-      transform: translateY(-3px);
-      box-shadow:0 4px 16px rgba(0,0,0,0.4);
-    }
-
-    /*========== FOOTER ==========*/
-    footer {
-      margin-top:40px;
-      text-align:center;
-      font-size:.9rem;
-      opacity:.7;
-    }
-
-    /*========== RESPONSIVE ==========*/
-    @media(max-width:400px){
-      .btns { flex-direction:column; }
-      .cta { flex-direction:column; }
-    }
-  </style>
-</head>
-<body>
-  <div class="background">
-    <div class="shape shape1"></div>
-    <div class="shape shape2"></div>
-  </div>
-  <div class="overlay"></div>
-
-  <div id="app">
-    <!-- WIZARD -->
-    <div class="card" id="wizard">
-      <div class="logo">MANUAL APROVADO</div>
-      <h2 id="question">Você tem dificuldade para estudar de forma organizada?</h2>
-      <div class="btns">
-        <button class="btn btn-yes" onclick="answer(true)">Sim</button>
-        <button class="btn btn-no"  onclick="answer(false)">Não</button>
-      </div>
-    </div>
-
-    <!-- SUMMARY -->
-    <div class="card" id="summary">
-      <div class="logo">MANUAL APROVADO</div>
-      <h2>O que você vai aprender:</h2>
-      <ul id="featureList"></ul>
-      <div class="cta">
-        <a class="cta-sample" href="BAIXAR_AMOSTRA_LINK" target="_blank">📥 Baixar Amostra</a>
-        <a class="cta-buy"    href="ADQUIRIR_AGORA_LINK"  target="_blank">💳 Adquirir Agora</a>
-      </div>
-    </div>
-    <footer>© 2025 Manual do Aprovado • Todos os direitos reservados</footer>
-  </div>
-
-  <script>
-    const wizard    = document.getElementById('wizard');
-    const summary   = document.getElementById('summary');
-    const question  = document.getElementById('question');
-    const features  = [
-      'Como montar um ciclo de estudos estratégico e flexível',
-      'Como fazer revisões de forma prática e contínua',
-      'Como controlar suas horas líquidas e estudar com qualidade',
-      'Como usar questões no dia a dia pra fixar e avançar',
-      'Por que não fazer resumos à mão e como grifar com inteligência',
-      'Como, quando e por que ler a lei seca',
-      'Visão de longo prazo + eficiência no curto prazo'
-    ];
-    const questions = [
-      'Você tem dificuldade para estudar de forma organizada?',
-      'Sente que esquece rápido o que aprendeu?',
-      'Já tentou planejar um ciclo de estudos e não seguiu?',
-      'Quer métodos práticos de revisão contínua?'
-    ];
-    let idx = 0;
-
-    function answer(_) {
-      idx++;
-      if (idx < questions.length) {
-        question.innerText = questions[idx];
-        wizard.animate(
-          [{opacity:0, transform:'translateY(20px)'}, {opacity:1, transform:'translateY(0)'}],
-          {duration:400}
-        );
-      } else {
-        showSummary();
-      }
-    }
-
-    function showSummary() {
-      wizard.style.display  = 'none';
-      summary.style.display = 'block';
-      features.forEach((f,i) => {
-        const li = document.createElement('li');
-        li.textContent = f;
-        document.getElementById('featureList').appendChild(li);
-        setTimeout(()=> li.classList.add('visible'), i*150);
-      });
-    }
-  </script>
-</body>
-</html>
+      flex:1 1 45%;padding:1
