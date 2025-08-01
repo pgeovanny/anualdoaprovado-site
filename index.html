@@ -2,176 +2,388 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Manual do Aprovado - Vitrine de Manuais</title>
+  <title>Manual do Aprovado • Portal Oficial</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:800,700,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;600;400&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --azul-institucional: #2D7BE9;
-      --azul-escuro: #1F4BA3;
-      --azul-claro: #E1F0FF;
-      --cinza-escuro: #22324D;
+      --azul1: #2D7BE9;
+      --azul2: #2196F3;
+      --azul-escuro: #162855;
+      --azul-glass: #2363e954;
+      --card-glass: rgba(255,255,255,0.22);
       --branco: #fff;
+      --preto: #16213e;
+      --glass-blur: 22px;
+      --shadow: 0 6px 36px #2649af1a;
     }
-    body {
+
+    html, body {
+      height: 100%;
       margin: 0;
+      padding: 0;
+      background: linear-gradient(120deg, var(--azul1) 0%, var(--azul2) 80%, #f1f5ff 100%);
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(180deg, var(--azul-institucional) 0%, var(--azul-claro) 100%);
+      color: var(--azul-escuro);
       min-height: 100vh;
+    }
+
+    body {
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-height: 100vh;
+      position: relative;
     }
-    header {
-      width: 100%;
-      background: var(--azul-escuro);
+
+    /* ===== LOGO IN CSS ===== */
+    .logo-css {
+      width: 94px;
+      height: 94px;
+      margin: 36px auto 8px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .logo-circle {
+      width: 92px; height: 92px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--azul2) 0%, var(--azul1) 100%);
+      box-shadow: 0 2px 12px #1f4ba344, 0 0 0 9px rgba(255,255,255,0.21) inset;
+      position: absolute;
+      top: 0; left: 0;
+      z-index: 1;
+    }
+    .logo-check {
+      position: absolute;
+      left: 50%; top: 34%;
+      transform: translate(-50%, -50%) scale(1.08);
+      width: 38px; height: 38px;
+      z-index: 2;
+    }
+    .logo-check svg {
+      width: 38px; height: 38px;
+      display: block;
+    }
+    .logo-book {
+      position: absolute;
+      left: 50%; top: 61%;
+      transform: translate(-50%, -50%);
+      width: 49px; height: 29px;
+      z-index: 2;
+      display: flex; flex-direction: row;
+      align-items: flex-end; justify-content: center;
+    }
+    .logo-book-base {
+      width: 49px; height: 18px;
+      border-bottom: 4px solid var(--azul1);
+      border-radius: 0 0 19px 19px;
+      background: none;
+      position: absolute;
+      left: 0; bottom: 0;
+    }
+    .logo-book-left, .logo-book-right {
+      width: 22px; height: 16px;
+      border: 3px solid var(--azul1);
+      border-top: none;
+      border-radius: 0 0 15px 7px;
+      background: none;
+      position: absolute; bottom: 3px;
+    }
+    .logo-book-left { left: 0; border-right: none;}
+    .logo-book-right { right: 0; border-left: none;}
+    .logo-title {
+      margin-top: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 2.3rem;
+      letter-spacing: 1px;
       color: var(--branco);
-      box-shadow: 0 2px 16px #1F4BA322;
-      padding: 28px 0 18px 0;
+      text-shadow: 0 2px 14px #2748a822;
       text-align: center;
     }
-    .logo {
-      width: 84px;
-      height: 84px;
-      object-fit: contain;
-      border-radius: 18px;
-      box-shadow: 0 2px 16px #2D7BE933;
-      margin-bottom: 8px;
+    .logo-desc {
+      color: var(--azul-glass);
+      font-size: 1.15rem;
+      text-align: center;
+      margin-bottom: 26px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-top: 5px;
+      text-shadow: 0 1px 8px #fff3;
     }
-    .titulo {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 2.3rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      margin: 0;
-    }
-    .sub {
-      font-size: 1.1rem;
-      color: var(--azul-claro);
-      margin-bottom: 0;
-      margin-top: 4px;
-    }
-    .container {
+
+    /* ===== CARDS ===== */
+    .vitrine {
       width: 100%;
-      max-width: 1060px;
+      max-width: 1160px;
       margin: 0 auto;
-      padding: 30px 16px 36px 16px;
+      padding: 0 2vw 60px 2vw;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
+
     .cards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 32px;
-      justify-content: center;
-      margin-top: 24px;
       width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 40px;
+      margin: 24px 0 0 0;
+      align-items: stretch;
     }
+
     .card {
-      background: var(--branco);
-      border-radius: 22px;
-      box-shadow: 0 4px 24px #2D7BE933;
-      width: 320px;
-      max-width: 95vw;
+      background: var(--card-glass);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border: 1.5px solid #e2ebfd40;
+      padding: 30px 18px 24px 18px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      transition: transform 0.14s, box-shadow 0.18s;
-      padding: 24px 20px 28px 20px;
+      position: relative;
+      transition: transform 0.18s cubic-bezier(.77,0,.18,1), box-shadow 0.19s cubic-bezier(.72,.02,.47,1);
+      cursor: pointer;
+      min-height: 420px;
+      overflow: visible;
     }
     .card:hover {
-      transform: scale(1.035) translateY(-5px);
-      box-shadow: 0 12px 42px #1F4BA344;
+      transform: scale(1.045) translateY(-10px) rotateZ(-0.6deg);
+      box-shadow: 0 14px 56px #1f4ba380;
+      background: rgba(255,255,255,0.28);
+      z-index: 2;
     }
     .capa {
-      width: 180px;
-      height: 250px;
+      width: 130px;
+      height: 185px;
       object-fit: cover;
-      border-radius: 14px;
-      margin-bottom: 16px;
-      background: var(--azul-claro);
-      box-shadow: 0 2px 14px #2D7BE922;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 5px 22px #2D7BE940, 0 0 0 6px #E1F0FF22;
+      background: linear-gradient(140deg, #E1F0FF 40%, #2D7BE9 100%);
+      transition: box-shadow 0.13s, filter 0.18s;
+      filter: brightness(1) drop-shadow(0 2px 6px #20367b30);
+    }
+    .card:hover .capa {
+      filter: brightness(1.08) saturate(1.18);
+      box-shadow: 0 12px 46px #2D7BE955, 0 0 0 9px #E1F0FF70;
     }
     .card-titulo {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 1.18rem;
-      margin-bottom: 6px;
-      color: var(--azul-escuro);
+      font-weight: 800;
+      font-size: 1.22rem;
+      color: var(--azul1);
       text-align: center;
+      margin-bottom: 8px;
+      letter-spacing: 0.4px;
     }
     .card-desc {
-      color: #284169;
-      font-size: 1.05rem;
+      color: #2e4169;
+      font-size: 1.03rem;
       margin-bottom: 18px;
       text-align: center;
+      opacity: .93;
       min-height: 44px;
+      max-width: 95%;
+      margin: 0 auto 18px auto;
     }
     .card-btn {
-      background: linear-gradient(90deg, var(--azul-escuro) 80%, var(--azul-institucional));
+      background: linear-gradient(90deg, var(--azul2) 80%, var(--azul1));
       color: var(--branco);
       border: none;
-      border-radius: 14px;
-      padding: 12px 28px;
+      border-radius: 16px;
+      padding: 13px 38px;
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
-      font-size: 1.04rem;
+      font-size: 1.07rem;
       text-decoration: none;
       letter-spacing: 1px;
-      box-shadow: 0 2px 12px #22408b22;
-      transition: background 0.16s, color 0.13s, transform 0.12s;
+      box-shadow: 0 3px 18px #22408b2c;
+      transition: background 0.17s, color 0.13s, transform 0.13s;
       margin-bottom: 8px;
+      margin-top: 9px;
       display: inline-block;
+      outline: none;
+      border: none;
+      cursor: pointer;
     }
-    .card-btn:hover {
-      background: var(--azul-institucional);
-      color: var(--azul-claro);
+    .card-btn:hover, .card-btn:focus {
+      background: var(--azul1);
+      color: var(--azul-escuro);
       transform: scale(1.06);
     }
+
+    /* ====== ADD MANUAL FORM ====== */
+    .add-btn {
+      margin: 18px auto 0 auto;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(90deg, var(--azul-escuro), var(--azul2) 85%);
+      color: var(--branco);
+      font-weight: 700;
+      border-radius: 16px;
+      border: none;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      padding: 13px 38px;
+      box-shadow: 0 2px 13px #2745ab22;
+      transition: background 0.13s, color 0.11s, transform 0.13s;
+      cursor: pointer;
+      gap: 9px;
+    }
+    .add-btn:hover, .add-btn:focus {
+      background: var(--azul1);
+      color: var(--azul-escuro);
+      transform: scale(1.04);
+    }
+    .add-form {
+      margin: 26px auto 18px auto;
+      background: var(--card-glass);
+      box-shadow: 0 5px 24px #1F4BA344;
+      backdrop-filter: blur(13px);
+      border-radius: 18px;
+      padding: 22px 24px 10px 24px;
+      max-width: 420px;
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+      border: 1.5px solid #e2ebfd55;
+      animation: showForm .5s cubic-bezier(.71,0,.33,1);
+    }
+    @keyframes showForm {
+      from { opacity:0; transform:translateY(-24px) scale(.98);}
+      to { opacity:1; transform:translateY(0) scale(1);}
+    }
+    .add-form input, .add-form textarea {
+      width: 100%;
+      padding: 10px 14px;
+      margin-bottom: 6px;
+      border-radius: 11px;
+      border: 1.3px solid #e1eaff;
+      font-size: 1.06rem;
+      font-family: 'Poppins',sans-serif;
+      background: #fffefea9;
+      outline: none;
+      transition: border .12s;
+    }
+    .add-form input:focus, .add-form textarea:focus {
+      border: 1.7px solid var(--azul1);
+      background: #f5faffed;
+    }
+    .add-form label {
+      font-weight: 700;
+      color: var(--azul1);
+      font-size: 1.04rem;
+      margin-bottom: 4px;
+    }
+    .add-form button[type=submit] {
+      margin-top: 6px;
+      background: linear-gradient(90deg, var(--azul2), var(--azul1));
+      color: var(--branco);
+      font-family: 'Montserrat',sans-serif;
+      font-weight: 700;
+      border-radius: 14px;
+      border: none;
+      font-size: 1.08rem;
+      padding: 11px 0;
+      cursor: pointer;
+      transition: background 0.13s, color 0.12s, transform 0.12s;
+    }
+    .add-form button[type=submit]:hover {
+      background: var(--azul1);
+      color: var(--azul-escuro);
+      transform: scale(1.03);
+    }
+    .msg {
+      text-align: center;
+      font-size: 1.08rem;
+      color: #098b31;
+      margin-bottom: 0;
+      font-weight: 700;
+      display: none;
+      padding: 7px 0 0 0;
+    }
+    /* ==== FOOTER ==== */
     footer {
       width: 100%;
       text-align: center;
       background: var(--azul-escuro);
       color: var(--azul-claro);
       font-size: 1rem;
-      padding: 30px 0 10px 0;
+      padding: 38px 0 13px 0;
       margin-top: auto;
       border-radius: 32px 32px 0 0;
       letter-spacing: 1px;
       margin-bottom: 0;
+      box-shadow: 0 -2px 14px #13234618;
     }
     .redes {
-      margin-bottom: 14px;
-      font-size: 1.65rem;
+      margin-bottom: 13px;
+      font-size: 1.73rem;
     }
     .redes a {
       color: var(--azul-claro);
       margin: 0 14px;
-      transition: color 0.18s;
+      transition: color 0.17s;
       text-decoration: none;
     }
     .redes a:hover {
       color: var(--branco);
     }
-    @media (max-width: 800px) {
-      .cards { flex-direction: column; align-items: center; gap: 24px; }
-      .container { padding: 20px 4vw 28px 4vw; }
+    @media (max-width: 740px) {
+      .logo-css { margin: 21px auto 7px auto;}
+      .logo-title { font-size: 1.3rem;}
+      .vitrine { padding: 0 1vw 44px 1vw;}
+      .cards { gap: 26px;}
+      .add-form { padding: 13px 5vw;}
+    }
+    @media (max-width: 500px) {
+      .logo-css { width: 64px; height: 64px;}
+      .logo-title { font-size: 1rem;}
+      .container { padding: 0 2vw;}
+      .cards { gap: 17px;}
+      .add-form { padding: 8px 2vw;}
     }
   </style>
 </head>
 <body>
-  <header>
-    <img class="logo" src="https://i.imgur.com/F6uT7B5.png" alt="Logo Manual do Aprovado">
-    <h1 class="titulo">Manual do Aprovado</h1>
-    <div class="sub">Vitrine oficial de manuais para concursos públicos</div>
-  </header>
-  <div class="container">
-    <div id="manuals" class="cards">
-      <!-- Os cards são preenchidos automaticamente -->
+  <div class="logo-css">
+    <div class="logo-circle"></div>
+    <div class="logo-check">
+      <svg viewBox="0 0 38 38">
+        <polyline points="6,20 16,32 32,8" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="logo-book">
+      <div class="logo-book-base"></div>
+      <div class="logo-book-left"></div>
+      <div class="logo-book-right"></div>
     </div>
   </div>
+  <div class="logo-title">Manual do Aprovado</div>
+  <div class="logo-desc">Portal oficial de manuais para concursos • Tudo em um só lugar</div>
+
+  <div class="vitrine">
+    <button class="add-btn" onclick="toggleForm()">+ Adicionar manual</button>
+    <form class="add-form" id="addForm" onsubmit="addManual(event)">
+      <label for="titulo">Título</label>
+      <input id="titulo" required maxlength="50" placeholder="Ex: Manual do Iniciante">
+      <label for="desc">Descrição</label>
+      <textarea id="desc" rows="2" required maxlength="110" placeholder="Descreva seu manual..."></textarea>
+      <label for="capa">Capa (link da imagem)</label>
+      <input id="capa" required maxlength="300" placeholder="Cole a URL da capa do manual">
+      <label for="link">Link (Kwify, PDF, etc)</label>
+      <input id="link" required maxlength="300" placeholder="Cole o link de venda/baixa">
+      <button type="submit">Adicionar à vitrine</button>
+      <div class="msg" id="msg">Adicionado com sucesso!</div>
+    </form>
+    <div class="cards" id="cards"></div>
+  </div>
+
   <footer>
     <div class="redes">
       <a href="https://instagram.com/pg_concursos_" target="_blank" title="Instagram">📷</a>
@@ -179,28 +391,65 @@
     </div>
     &copy; 2025 Manual do Aprovado • Todos os direitos reservados.
   </footer>
+
   <script>
-    // Carrega o arquivo manuais.json e cria os cards dinamicamente
-    fetch('manuais.json')
-      .then(response => response.json())
-      .then(manuais => {
-        const div = document.getElementById('manuals');
-        manuais.forEach(m => {
-          div.innerHTML += `
-            <div class="card">
-              <img src="${m.capa}" class="capa" alt="Capa do manual">
-              <div class="card-titulo">${m.titulo}</div>
-              <div class="card-desc">${m.descricao}</div>
-              <a class="card-btn" href="${m.link}" target="_blank">
-                ${m.link === "#" ? "Em breve" : "Acessar"}
-              </a>
-            </div>
-          `;
-        });
-      })
-      .catch(() => {
-        document.getElementById('manuals').innerHTML = "<div style='color:#c00'>Erro ao carregar os manuais!</div>";
+    // Base de dados inicial (se quiser, pode deixar vazia [])
+    let manuais = [
+      {
+        titulo: "Manual do Aprovado – Versão do Iniciante",
+        desc: "O passo a passo para quem está começando nos concursos públicos.",
+        capa: "https://i.imgur.com/NPRf0Z9.png",
+        link: "https://kwify.com.br/SEU-LINK-1"
+      },
+      {
+        titulo: "Manual Avançado (em breve)",
+        desc: "Para quem já domina o básico e quer acelerar rumo à aprovação.",
+        capa: "https://i.imgur.com/fkji6tR.png",
+        link: "#"
+      }
+    ];
+
+    // Renderiza os cards
+    function renderCards() {
+      const el = document.getElementById('cards');
+      el.innerHTML = '';
+      manuais.forEach((m, i) => {
+        el.innerHTML += `
+          <div class="card" title="${m.titulo}">
+            <img class="capa" src="${m.capa}" alt="Capa do manual">
+            <div class="card-titulo">${m.titulo}</div>
+            <div class="card-desc">${m.desc}</div>
+            <a class="card-btn" href="${m.link}" target="_blank">
+              ${m.link==='#' ? 'Em breve' : 'Acessar'}
+            </a>
+          </div>
+        `;
       });
+    }
+    renderCards();
+
+    // Formulário para adicionar
+    function toggleForm() {
+      let form = document.getElementById('addForm');
+      form.style.display = form.style.display === 'flex' ? 'none' : 'flex';
+      if(form.style.display==='flex') {
+        form.scrollIntoView({behavior:'smooth'});
+      }
+    }
+    function addManual(e) {
+      e.preventDefault();
+      let titulo = document.getElementById('titulo').value.trim();
+      let desc = document.getElementById('desc').value.trim();
+      let capa = document.getElementById('capa').value.trim();
+      let link = document.getElementById('link').value.trim();
+      if(titulo && desc && capa && link){
+        manuais.push({titulo, desc, capa, link});
+        renderCards();
+        document.getElementById('addForm').reset();
+        document.getElementById('msg').style.display='block';
+        setTimeout(()=>{document.getElementById('msg').style.display='none';},1300);
+      }
+    }
   </script>
 </body>
 </html>
