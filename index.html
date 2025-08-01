@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manual do Aprovado - Portal</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:800,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --azul-institucional: #2D7BE9;
+      --azul-escuro: #1F4BA3;
+      --azul-claro: #E1F0FF;
+      --cinza-escuro: #22324D;
+      --branco: #fff;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, var(--azul-institucional) 0%, var(--azul-claro) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .container {
+      background: rgba(255,255,255,0.92);
+      margin-top: 50px;
+      padding: 40px 32px 32px 32px;
+      border-radius: 24px;
+      box-shadow: 0 4px 32px rgba(44, 95, 199, 0.13);
+      max-width: 430px;
+      width: 96vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .logo {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px #2D7BE933;
+      object-fit: contain;
+      margin-bottom: 18px;
+    }
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--azul-escuro);
+      margin-bottom: 8px;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+    .sub {
+      font-size: 1.14rem;
+      color: var(--cinza-escuro);
+      margin-bottom: 28px;
+      text-align: center;
+    }
+    .link-btn {
+      display: block;
+      width: 100%;
+      margin: 14px 0;
+      padding: 16px 0;
+      background: linear-gradient(90deg, var(--azul-escuro) 65%, var(--azul-institucional));
+      color: var(--branco);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.13rem;
+      border: none;
+      border-radius: 16px;
+      text-align: center;
+      letter-spacing: 1px;
+      text-decoration: none;
+      box-shadow: 0 2px 12px #22408b29;
+      transition: background 0.2s, color 0.2s, transform 0.12s;
+    }
+    .link-btn:hover {
+      background: var(--azul-institucional);
+      color: var(--azul-claro);
+      transform: scale(1.04);
+    }
+    .copyright {
+      margin-top: 30px;
+      font-size: 0.97rem;
+      color: #335;
+      opacity: 0.62;
+      text-align: center;
+    }
+    .redes {
+      margin-top: 16px;
+      text-align: center;
+    }
+    .redes a {
+      display: inline-block;
+      margin: 0 7px;
+      color: var(--azul-escuro);
+      font-size: 1.6rem;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .redes a:hover {
+      color: var(--azul-institucional);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img class="logo" src="COLE_AQUI_A_URL_DA_SUA_LOGO.png" alt="Manual do Aprovado Logo">
+    <h1>Manual do Aprovado</h1>
+    <div class="sub">Escolha abaixo qual manual você quer acessar:</div>
+
+    <!-- BOTÕES DOS MANUAIS - ADICIONE MAIS QUANTOS QUISER -->
+    <a class="link-btn" href="https://kwify.com.br/SEU-LINK-DE-VENDA" target="_blank">
+      📘 Manual do Aprovado – Versão do Iniciante
+    </a>
+    <!-- Exemplo de outro manual -->
+    <a class="link-btn" href="https://kwify.com.br/OUTRO-MANUAL" target="_blank">
+      📝 Manual Avançado (em breve)
+    </a>
+    <!-- Adicione quantos quiser acima! -->
+
+    <div class="redes">
+      <a href="https://instagram.com/pg_concursos_" target="_blank" title="Instagram">📷</a>
+      <a href="mailto:seu@email.com" title="Contato por e-mail">✉️</a>
+    </div>
+    <div class="copyright">
+      &copy; 2025 Manual do Aprovado
+    </div>
+  </div>
+</body>
+</html>
